@@ -8,6 +8,11 @@ The module implements the basic <a href="https://iconify.design/docs/api/">Iconi
 ## Install
     npm install nestjs-iconify
 
+## Todo routes
+- [ ] /search
+- [ ] /keywords
+- [ ] /{prefix}.css?icons={icons}
+
 ## Basic usage
 ```ts
 // app.module.ts
