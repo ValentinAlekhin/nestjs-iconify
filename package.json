@@ -1,9 +1,14 @@
 {
   "name": "nestjs-iconify",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "NestJS Iconify Module",
   "repository": "https://github.com/ValentinAlekhin/nestjs-iconify",
-  "keywords": ["nestjs", "nest", "iconify", "icon"],
+  "keywords": [
+    "nestjs",
+    "nest",
+    "iconify",
+    "icon"
+  ],
   "author": {
     "name": "Alekhin Valentin",
     "email": "alekhin.v99@gmail.com",
