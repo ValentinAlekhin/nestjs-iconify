@@ -64,8 +64,6 @@ export class IconifyCoreService {
       return {};
     }
 
-    console.log(query);
-
     if (query.prefixes.length) {
       const data = await this.findManyByPrefixes(query.prefixes);
       const collections = await Promise.all(
