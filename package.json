@@ -1,6 +1,6 @@
 {
   "name": "nestjs-iconify",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "NestJS Iconify Module",
   "repository": "https://github.com/ValentinAlekhin/nestjs-iconify",
   "keywords": [
