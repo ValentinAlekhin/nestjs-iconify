@@ -4,19 +4,9 @@ interface ToNumberOptions {
   max?: number;
 }
 
-export function toLowerCase(value: string): string {
-  return value.toLowerCase();
-}
+export function toBoolean(value: string = ''): boolean {
+  if (typeof value === 'boolean') return value;
 
-export function trim(value: string): string {
-  return value.trim();
-}
-
-export function toDate(value: string): Date {
-  return new Date(value);
-}
-
-export function toBoolean(value: string): boolean {
   value = value.toLowerCase();
 
   return value === 'true' || value === '1';
@@ -40,4 +30,10 @@ export function toNumber(value: string, opts: ToNumberOptions = {}): number {
   }
 
   return newValue;
+}
+
+export function toStringArray(string: string) {
+  if (Array.isArray(string)) return string;
+
+  return string?.split('.') || [];
 }

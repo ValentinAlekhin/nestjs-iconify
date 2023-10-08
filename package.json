@@ -1,8 +1,9 @@
 {
   "name": "nestjs-iconify",
-  "version": "0.0.1",
+  "version": "0.0.8",
   "description": "NestJS Iconify Module",
   "repository": "https://github.com/ValentinAlekhin/nestjs-iconify",
+  "keywords": ["nestjs", "nest", "iconify", "icon"],
   "author": {
     "name": "Alekhin Valentin",
     "email": "alekhin.v99@gmail.com",
@@ -10,6 +11,8 @@
   },
   "private": false,
   "license": "UNLICENSED",
+  "main": "./dist/index.js",
+  "typings": "./dist/index.d.ts",
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",

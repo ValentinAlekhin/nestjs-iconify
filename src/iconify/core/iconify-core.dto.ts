@@ -7,7 +7,7 @@ import {
   IsString,
 } from 'class-validator';
 import { Transform } from 'class-transformer';
-import { toBoolean, toNumber } from '../helpers/transformers';
+import { toBoolean, toNumber, toStringArray } from '../helpers/transformers';
 
 export class CollectionQueryDto {
   @IsString()
@@ -33,13 +33,13 @@ export class LastModifiedQueryDto {
 
   @IsArray()
   @IsOptional()
-  @Transform(({ value }) => value?.split(',') || [])
+  @Transform(({ value }) => toStringArray(value))
   prefixes: string[];
 }
 
 export class JsonCssQueryDto {
   @IsArray()
-  @Transform(({ value }) => value?.split(',') || [])
+  @Transform(({ value }) => toStringArray(value))
   icons: string[];
 }
 
