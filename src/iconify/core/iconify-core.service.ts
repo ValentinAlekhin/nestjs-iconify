@@ -44,10 +44,6 @@ export class IconifyCoreService {
     };
   }
 
-  async lookupCollections(prefix: string) {
-    return lookupCollection(prefix);
-  }
-
   async lastModified(query: LastModifiedQueryDto) {
     if (!query.prefix && !query.prefixes) {
       return {};
@@ -76,8 +72,9 @@ export class IconifyCoreService {
     }
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async css(prefix: string, query: JsonCssQueryDto, res: Response) {
-    res.set({ 'Content-Type': 'text/css; charset=utf-8' }).send('css');
+    throw new NotFoundException();
   }
   async json(prefix: string, query: JsonCssQueryDto, res: Response) {
     const data = await this.findByPrefixAndIcons(prefix, query.icons);
