@@ -3,21 +3,26 @@
 </p>
 
 # NestJS Iconify Module
-The module implements the basic <a href="https://iconify.design/docs/api/">Iconify API</a> 
+The module implements the basic <a href="https://iconify.design/docs/api/queries.html">Iconify API</a> 
 
 ## Install
     npm install nestjs-iconify
 
 ## Todo routes
+- [x] /{prefix}/{name}.svg
+- [ ] /{prefix}.css?icons={icons}
+- [x] /{prefix}.json?icons={icons}
+- [x] /last-modified
+- [x] /collections
+- [x] /collection
 - [ ] /search
 - [ ] /keywords
-- [ ] /{prefix}.css?icons={icons}
 
 ## Basic usage
 ```ts
 // app.module.ts
 import { Module } from '@nestjs/common';
-import { IconifyModule } from './iconify/iconify.module';
+import { IconifyModule } from 'nestjs-iconify'
 
 @Module({
   imports: [
