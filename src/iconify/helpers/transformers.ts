@@ -35,5 +35,5 @@ export function toNumber(value: string, opts: ToNumberOptions = {}): number {
 export function toStringArray(string: string) {
   if (Array.isArray(string)) return string;
 
-  return string?.split('.') || [];
+  return string?.split(',') || [];
 }
