@@ -13,10 +13,13 @@ import {
   defaultIconCustomisations,
   defaultIconDimensions,
   flipFromString,
+  getIconsCSS,
   IconifyIconCustomisations,
   iconToHTML,
   iconToSVG,
+  stringToColor,
 } from '@iconify/utils';
+import { IconCSSIconSetOptions } from '@iconify/utils/lib/css/types';
 
 @Injectable()
 export class IconifyCoreService {
@@ -72,9 +75,82 @@ export class IconifyCoreService {
     }
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async css(prefix: string, query: JsonCssQueryDto, res: Response) {
-    throw new NotFoundException();
+    const iconSet = await this.findByPrefix(prefix, true);
+
+    const options: IconCSSIconSetOptions = {};
+    const qOptions = query as IconCSSIconSetOptions;
+
+    if (typeof qOptions.format === 'string') {
+      options.format = query.format;
+    }
+
+    const color = qOptions.color;
+    if (typeof color === 'string' && stringToColor(color)) {
+      options.color = color;
+    }
+
+    const mode = qOptions.mode;
+    if (mode) {
+      switch (mode) {
+        case 'background':
+        case 'mask':
+          options.mode = mode;
+          break;
+
+        default:
+          if ((mode as string) === 'bg') {
+            options.mode = 'background';
+          }
+      }
+    }
+
+    const forceSquare =
+      query.square || query.forceSquare || query['force-square'];
+    if (typeof forceSquare === 'boolean') {
+      options.forceSquare = forceSquare;
+    }
+
+    const pseudoSelector =
+      query.pseudo || query.pseudoSelector || query['pseudo-selector'];
+    if (typeof pseudoSelector === 'boolean') {
+      options.pseudoSelector = pseudoSelector;
+    }
+
+    const commonSelector = qOptions.commonSelector || query.common;
+    if (this.checkSelector(commonSelector)) {
+      options.commonSelector = commonSelector;
+    }
+
+    const iconSelector = qOptions.iconSelector || query.selector;
+    if (this.checkSelector(iconSelector)) {
+      options.iconSelector = iconSelector;
+    }
+
+    const overrideSelector = qOptions.overrideSelector || query.override;
+    if (this.checkSelector(overrideSelector)) {
+      options.overrideSelector = overrideSelector;
+    }
+
+    const varName = query.varName || query.var;
+    if (typeof varName === 'string' && varName.match(/^[a-z0-9_-]*$/)) {
+      if (!varName || varName === 'null' || query.varName) {
+        options.varName = null;
+      } else {
+        options.varName = varName;
+      }
+    }
+
+    const css = getIconsCSS(iconSet, query.icons, options);
+
+    if (query.download) {
+      res.header(
+        'Content-Disposition',
+        'attachment; filename="' + prefix + '.css"',
+      );
+    }
+
+    res.type('text/css; charset=utf-8').send(css);
   }
   async json(prefix: string, query: JsonCssQueryDto, res: Response) {
     const data = await this.findByPrefixAndIcons(prefix, query.icons);
@@ -184,5 +260,15 @@ export class IconifyCoreService {
     const top = data.top || 0;
 
     return { ...icon, width, height, left, top };
+  }
+
+  private checkSelector(value: string | undefined): boolean {
+    if (typeof value !== 'string') {
+      return false;
+    }
+    const cleanValue = value
+      .replaceAll('{name}', '')
+      .replaceAll('{prefix}', '');
+    return cleanValue.indexOf('{') === -1 && cleanValue.indexOf('}') === -1;
   }
 }

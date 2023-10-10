@@ -4,12 +4,25 @@ interface ToNumberOptions {
   max?: number;
 }
 
-export function toBoolean(value: string = ''): boolean {
+export function toBoolean(
+  value: string | boolean = '',
+  defaultValue?: boolean,
+): boolean | undefined {
+  switch (value) {
+    case 'true':
+    case 'yes':
+    case '1':
+      return true;
+
+    case 'false':
+    case 'no':
+    case '0':
+      return false;
+  }
+
   if (typeof value === 'boolean') return value;
 
-  value = value.toLowerCase();
-
-  return value === 'true' || value === '1';
+  return defaultValue;
 }
 
 export function toNumber(value: string, opts: ToNumberOptions = {}): number {

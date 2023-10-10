@@ -1,6 +1,7 @@
 import {
   IsArray,
   IsBoolean,
+  IsEnum,
   IsNotEmpty,
   IsNumber,
   IsOptional,
@@ -9,6 +10,17 @@ import {
 import { Transform } from 'class-transformer';
 import { toBoolean, toStringArray } from '../../helpers/transformers';
 import { toNumber } from 'lodash';
+
+export enum CssQueryModeType {
+  MASK = 'mask',
+  BACKGROUND = 'background',
+}
+
+export enum CssQueryFormatType {
+  EXPANDED = 'expanded',
+  COMPACT = 'compact',
+  COMPRESSED = 'compressed',
+}
 
 export class CollectionQueryDto {
   @IsString()
@@ -42,6 +54,77 @@ export class JsonCssQueryDto {
   @IsArray()
   @Transform(({ value }) => toStringArray(value))
   icons: string[];
+
+  @IsBoolean()
+  @IsOptional()
+  @Transform(({ value }) => toBoolean(value))
+  download: boolean;
+
+  @IsString()
+  @IsOptional()
+  iconSelector: string;
+
+  @IsString()
+  @IsOptional()
+  selector: string;
+
+  @IsString()
+  @IsOptional()
+  commonSelector: string;
+
+  @IsString()
+  @IsOptional()
+  common: string;
+
+  @IsString()
+  @IsOptional()
+  overrideSelector: string;
+
+  @IsString()
+  @IsOptional()
+  override: string;
+
+  @IsBoolean()
+  @IsOptional()
+  @Transform(({ value }) => toBoolean(value))
+  pseudoSelector: boolean;
+
+  @IsBoolean()
+  @IsOptional()
+  @Transform(({ value }) => toBoolean(value))
+  pseudo: boolean;
+
+  @IsString()
+  @IsOptional()
+  varName: string;
+
+  @IsString()
+  @IsOptional()
+  var: string;
+
+  @IsBoolean()
+  @IsOptional()
+  @Transform(({ value }) => toBoolean(value))
+  forceSquare: boolean;
+
+  @IsBoolean()
+  @IsOptional()
+  @Transform(({ value }) => toBoolean(value))
+  square: boolean;
+
+  @IsString()
+  @IsOptional()
+  color: string;
+
+  @Transform(({ value }) => ('' + value).toLowerCase())
+  @IsEnum(CssQueryModeType)
+  @IsOptional()
+  mode: CssQueryModeType;
+
+  @Transform(({ value }) => ('' + value).toLowerCase())
+  @IsEnum(CssQueryFormatType)
+  @IsOptional()
+  format: CssQueryFormatType;
 }
 
 export class SvgQueryDto {

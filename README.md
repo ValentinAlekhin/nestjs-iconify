@@ -10,7 +10,7 @@ The module implements the basic <a href="https://iconify.design/docs/api/queries
 
 ## Todo routes
 - [x] /{prefix}/{name}.svg
-- [ ] /{prefix}.css?icons={icons}
+- [x] /{prefix}.css?icons={icons}
 - [x] /{prefix}.json?icons={icons}
 - [x] /last-modified
 - [x] /collections

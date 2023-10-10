@@ -32,6 +32,9 @@ describe('App', () => {
     {
       url: '/material-symbols/ac-unit-sharp.svg?flip=true&rotate=20&download=true&top=20',
     },
+    {
+      url: '/openmoji.css?icons=axe&selector=.axe-icon&square=true&pseudo=true&common=.test&var=variable',
+    },
   ])('$url (GET)', ({ url }) => {
     it('it should OK', () => {
       return request(baseUrl).get(url).expect(HttpStatus.OK);
