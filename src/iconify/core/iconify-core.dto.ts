@@ -7,7 +7,8 @@ import {
   IsString,
 } from 'class-validator';
 import { Transform } from 'class-transformer';
-import { toBoolean, toNumber, toStringArray } from '../helpers/transformers';
+import { toBoolean, toStringArray } from '../../helpers/transformers';
+import { toNumber } from 'lodash';
 
 export class CollectionQueryDto {
   @IsString()
